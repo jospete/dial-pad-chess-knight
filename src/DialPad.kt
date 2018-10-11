@@ -54,6 +54,10 @@ class DialPad(private val layout: Array<IntArray>, private val invalidValue: Int
 
     private fun getPathFrom(start: Position, previousItems: MutableList<Position>): MutableList<Position> {
 
+        if (!hasPosition(start)) {
+            return previousItems
+        }
+
         val list = concat(previousItems, arrayListOf(start))
 
         val distinctNeighbors = getNeighbors(start)

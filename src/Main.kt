@@ -10,7 +10,7 @@ val pad = DialPad(arrayOf(
 val tester = DialPadTester(pad)
 
 fun main(args: Array<String>) {
-    arrayListOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+    arrayListOf(-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12345)
             .asSequence()
             .map { value -> tester.test(value) }
             .sortedBy { value -> value.positions.size }
