@@ -52,22 +52,22 @@ class DialPad(private val layout: Array<IntArray>, private val invalidValue: Int
         return result
     }
 
-    private fun getPathFrom(start: Position, list: MutableList<Position>): MutableList<Position> {
+    private fun getPathFrom(start: Position, previousItems: MutableList<Position>): MutableList<Position> {
 
-        val listWithStart = concat(list, arrayListOf(start))
+        val list = concat(previousItems, arrayListOf(start))
 
         val distinctNeighbors = getNeighbors(start)
                 .asSequence()
-                .filter { neighbor -> !listWithStart.any { item -> item.value == neighbor.value } }
+                .filter { neighbor -> !list.any { item -> item.value == neighbor.value } }
                 .toMutableList()
 
         if (distinctNeighbors.count() <= 0) {
-            return listWithStart
+            return list
         }
 
         return distinctNeighbors
                 .asSequence()
-                .map { neighbor -> getPathFrom(neighbor, listWithStart) }
+                .map { neighbor -> getPathFrom(neighbor, list) }
                 .reduce { acc, next -> if (acc.size > next.size) acc else next }
     }
 
