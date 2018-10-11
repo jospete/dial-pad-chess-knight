@@ -61,14 +61,14 @@ class DialPad(private val layout: Array<IntArray>, private val invalidValue: Int
                 .filter { neighbor -> !listWithStart.any { item -> item.value == neighbor.value } }
                 .toMutableList()
 
-        if (distinctNeighbors.count() > 0) {
-            return distinctNeighbors
-                    .asSequence()
-                    .map { neighbor -> getPathFrom(neighbor, listWithStart) }
-                    .reduce { acc, next -> if (acc.size > next.size) acc else next }
+        if (distinctNeighbors.count() <= 0) {
+            return listWithStart
         }
 
-        return listWithStart
+        return distinctNeighbors
+                .asSequence()
+                .map { neighbor -> getPathFrom(neighbor, listWithStart) }
+                .reduce { acc, next -> if (acc.size > next.size) acc else next }
     }
 
     fun getPath(start: Position): MutableList<Position> {

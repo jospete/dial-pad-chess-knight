@@ -1,11 +1,11 @@
-const val invalidValue = -1
+const val iv = -1
 
 val pad = DialPad(arrayOf(
-        intArrayOf(1, 2, 3),
-        intArrayOf(4, 5, 6),
-        intArrayOf(7, 8, 9),
-        intArrayOf(invalidValue, 0, invalidValue)
-), invalidValue)
+        intArrayOf( 1,  2,  3, 1234),
+        intArrayOf( 4,  5,  6, 4444, 6612),
+        intArrayOf( 7,  8,  9, 8923, 2341, 9867),
+        intArrayOf(iv,  0, iv)
+), iv)
 
 val tester = DialPadTester(pad)
 
