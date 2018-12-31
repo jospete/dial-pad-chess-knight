@@ -34,6 +34,6 @@ fun main(args: Array<String>) {
     startValues
             .asSequence()
             .map { value -> pathTester.getLongestPath(value) }
-            .sortedBy { value -> value.positions.size }
+            .sortedBy { value -> value.positionValues.size }
             .forEach { value -> println(value) }
 }
