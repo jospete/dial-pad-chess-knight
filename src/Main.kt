@@ -1,18 +1,39 @@
-const val iv = -1
+// Mark invalid positions with this value (holes in the NavigationMatrix)
+const val invalidValue = -1
 
-val pad = DialPad(arrayOf(
-        intArrayOf( 1,  2,  3, 1234),
-        intArrayOf( 4,  5,  6, 4444, 6612),
-        intArrayOf( 7,  8,  9, 8923, 2341, 9867),
-        intArrayOf(iv,  0, iv)
-), iv)
+// Defines the layout of a traditional phone dial pad
+val dialPadLayout = arrayOf(
+        intArrayOf( 1,  2,  3),
+        intArrayOf( 4,  5,  6),
+        intArrayOf( 7,  8,  9),
+        intArrayOf(invalidValue,  0, invalidValue)
+)
 
-val tester = DialPadTester(pad)
+// Defines the valid moves that a knight piece can make in chess
+val knightPieceMoveSet = arrayOf(
+        Position(-1, 2),
+        Position(1, 2),
+        Position(-1, -2),
+        Position(1, -2),
+        Position(2, -1),
+        Position(2, 1),
+        Position(-2, -1),
+        Position(-2, 1)
+)
+
+// Make a dial pad matrix that we can navigate over
+val dialPad = NavigationMatrix(dialPadLayout, knightPieceMoveSet, invalidValue)
+
+// Make a navigator that will use the dial pad matrix to test longest paths for values
+val pathTester = Navigator(dialPad)
+
+// Test these starting point values to get the longest path among them
+val startValues = listOf(-50, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12345)
 
 fun main(args: Array<String>) {
-    arrayListOf(-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12345)
+    startValues
             .asSequence()
-            .map { value -> tester.test(value) }
+            .map { value -> pathTester.getLongestPath(value) }
             .sortedBy { value -> value.positions.size }
             .forEach { value -> println(value) }
 }
