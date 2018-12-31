@@ -5,6 +5,10 @@
  */
 class NavigationMatrix(private val layout: Array<IntArray>, private val moveSet: Array<Position>, private val invalidValue: Int) {
 
+    /**
+     * Determine the longest path that can be taken from the given start position,
+     * where all nodes in the path are distinct from one another (no overlapping positions).
+     */
     fun getPath(start: Position): List<Position> {
         return getPathFrom(start, emptyList())
     }
